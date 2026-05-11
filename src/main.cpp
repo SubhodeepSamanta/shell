@@ -16,7 +16,7 @@ int main() {
     else if(command.substr(0,5)=="type "){
       string commandType;
       commandType=command.substr(5);
-      if(commandType=="echo" || commandType=="exit") cout<<commandType<<" is a shell builin\n";
+      if(commandType=="echo" || commandType=="exit") cout<<commandType<<" is a shell builtin\n";
       else cout<<commandType<<": not found\n";
     }
     else cout<<command<<": command not found\n";
