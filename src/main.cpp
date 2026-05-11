@@ -14,8 +14,8 @@ string executable(string command){
   string dir;
   while(getline(ss,dir,':')){
     string fullPath=dir+'/'+command;
-    if(access(fullPath.data(),F_OK)){
-      if(access(fullPath.data(),X_OK)){
+    if(access(fullPath.data(),F_OK)==0){
+      if(access(fullPath.data(),X_OK)==0){
         return fullPath;
       }
     }
