@@ -41,7 +41,7 @@ int main() {
         cout<<commandType<<" is a shell builtin\n";
       }
       else if(executable(commandType)!=""){
-        cout<<commandType<<" is: "<<executable(commandType)<<"\n";
+        cout<<commandType<<" is "<<executable(commandType)<<"\n";
       }
       else cout<<commandType<<": not found\n";
     }
