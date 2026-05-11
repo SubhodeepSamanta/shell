@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+using namespace std;
 
 int main() {
   // Flush after every std::cout / std:cerr
@@ -7,4 +8,7 @@ int main() {
   std::cerr << std::unitbuf;
 
   std::cout << "$ ";
+  string command;
+  cin>>command;
+  cout<<command<<": command not found";
 }
