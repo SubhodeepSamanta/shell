@@ -48,7 +48,7 @@ int main() {
     }
     else if(tokens[0]=="type"){
       if(tokens[1]=="echo" || tokens[1]=="type" || tokens[1]=="exit"){
-        cout<<tokens[1]<<"is a shell builtin\n";
+        cout<<tokens[1]<<" is a shell builtin\n";
       }else if(executable(tokens[1])!=""){
         cout<<tokens[1]<<" is "<<executable(tokens[1])<<"\n";
       }else{
