@@ -70,7 +70,7 @@ int main() {
       
     }
     else{
-      cout<<tokens[0]<<": command no found\n";
+      cout<<tokens[0]<<": command not found\n";
     }
   }
   
