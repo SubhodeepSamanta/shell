@@ -62,6 +62,7 @@ int main() {
         for(auto& token:tokens){
           args.push_back(token.data());
         }
+        args.push_back(NULL);
         execvp(args[0],args.data());
       }else{
         waitpid(pid,NULL,0);
