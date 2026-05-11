@@ -29,10 +29,10 @@ int main() {
   std::cerr << std::unitbuf;
 
   while(true){
-    cout<<"$";
+    cout<<"$ ";
     string line;
     getline(cin,line);
-    stringstream ss;
+    stringstream ss(line);
     vector<string> tokens;
     string word;
 
