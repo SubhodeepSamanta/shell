@@ -10,8 +10,9 @@ int main() {
   while(true){
     std::cout << "$ ";
     string command;
-    cin>>command;
+    getline(cin,command);
     if(command=="exit") break;
+    if(command.substr(0,5)=="echo ") cout<<command.substr(5)<<"\n";
     cout<<command<<": command not found\n";
   }
 }
