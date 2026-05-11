@@ -13,6 +13,12 @@ int main() {
     getline(cin,command);
     if(command=="exit") break;
     else if(command.substr(0,5)=="echo ") cout<<command.substr(5)<<"\n";
+    else if(command.substr(0,5)=="type "){
+      string commandType;
+      commandType=command.substr(5);
+      if(commandType=="echo" || commandType=="exit") cout<<commandType<<" is a shell builin";
+      else cout<<commandType<<": not found";
+    }
     else cout<<command<<": command not found\n";
   }
 }
