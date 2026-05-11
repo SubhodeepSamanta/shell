@@ -13,7 +13,7 @@ string executable(string command){
   stringstream ss(path);
   string dir;
   while(getline(ss,dir,':')){
-    string fullPath=dir.data()+'/'+command;
+    string fullPath=dir+"/"+command;
     if(access(fullPath.data(),F_OK)==0){
       if(access(fullPath.data(),X_OK)==0){
         return fullPath;
@@ -41,7 +41,7 @@ int main() {
         cout<<commandType<<" is a shell builtin\n";
       }
       else if(executable(commandType)!=""){
-        cout<<commandType<<"is: "<<executable(commandType);
+        cout<<commandType<<" is: "<<executable(commandType);
       }
       else cout<<commandType<<": not found\n";
     }
