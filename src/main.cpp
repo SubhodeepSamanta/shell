@@ -10,7 +10,7 @@ using namespace std;
 string executable(string command){
   char* pathEnv=getenv("PATH");
   string path(pathEnv);
-  stringstream ss;
+  stringstream ss(path);
   string dir;
   while(getline(ss,dir,':')){
     string fullPath=dir+'/'+command;
