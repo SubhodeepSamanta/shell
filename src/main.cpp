@@ -60,7 +60,7 @@ int main() {
       if(pid==0){
         vector<char*> args;
         for(auto& token:tokens){
-          args.push_back(token.data());
+          args.push_back(token.data()); 
         }
         args.push_back(NULL);
         execvp(args[0],args.data());
