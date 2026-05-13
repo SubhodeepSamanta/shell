@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <sstream>
 #include<sys/types.h>
+#include<limits.h>
 #include<sys/wait.h>
 #include<vector>
 using namespace std;
@@ -47,13 +48,18 @@ int main() {
       cout<<endl;
     }
     else if(tokens[0]=="type"){
-      if(tokens[1]=="echo" || tokens[1]=="type" || tokens[1]=="exit"){
+      if(tokens[1]=="echo" || tokens[1]=="type" || tokens[1]=="exit" || tokens[1]=="pwd"){
         cout<<tokens[1]<<" is a shell builtin\n";
       }else if(executable(tokens[1])!=""){
         cout<<tokens[1]<<" is "<<executable(tokens[1])<<"\n";
       }else{
         cout<<tokens[1]<<": not found\n";
       }
+    }
+    else if(tokens[0]=="pwd"){
+      char buffer[PATH_MAX];
+      getcwd(buffer,sizeof(buffer));
+      cout<<buffer<<endl;
     }
     else if(executable(tokens[0])!=""){
       pid_t pid=fork();
