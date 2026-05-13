@@ -61,6 +61,16 @@ int main() {
       getcwd(buffer,sizeof(buffer));
       cout<<buffer<<endl;
     }
+    else if(tokens[0]=="cd"){
+      string path=tokens[1];
+      if(tokens[1].substr(1,2)=="~"){
+        string home=getenv("HOME");
+        path=home+path.substr(1);
+      }
+      if(chdir(path.c_str())!=0){
+        cout<<"cd: "<<path<<": No such file or directory"<<endl;
+      }
+    }
     else if(executable(tokens[0])!=""){
       pid_t pid=fork();
       if(pid==0){
