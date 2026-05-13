@@ -63,7 +63,7 @@ int main() {
     }
     else if(tokens[0]=="cd"){
       string path=tokens[1];
-      if(tokens[1].substr(1,2)=="~"){
+      if(!path.empty() && path[0]=='~'){
         string home=getenv("HOME");
         path=home+path.substr(1);
       }
