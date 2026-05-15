@@ -4,6 +4,7 @@
 #include<string>
 #include<sstream>
 #include<sys/types.h>
+#include<limits.h>
 #include<sys/wait.h>
 
 using namespace std;
@@ -20,7 +21,7 @@ vector<string> tokenizer(string& line){
   string word;
   vector<string> tokens;
   while(ss>>word){
-    tokens.push_back(word);
+    tokens.push_back(word);  
   }
   return tokens;
 }
@@ -69,6 +70,11 @@ void externalCommandRun(vector<string>& tokens){
    }
 }
 
+string getPwd(){
+  char buffer[PATH_MAX];
+  string dir=getcwd(buffer,sizeof(buffer));
+  return dir;
+}
 
 bool handleCommand(vector<string>& tokens){
   if(tokens[0]=="type"){
@@ -77,6 +83,11 @@ bool handleCommand(vector<string>& tokens){
   }
   else if(tokens[0]=="echo"){
     handleEcho(tokens);
+    return true;
+  }
+  else if(tokens[0]=="pwd"){
+    string dir=getPwd();
+    cout<<dir;
     return true;
   }
   else if(externalCommandCheck(tokens[0])!=""){
