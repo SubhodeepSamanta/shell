@@ -108,7 +108,7 @@ int main() {
       char buffer[PATH_MAX];
       getcwd(buffer,sizeof(buffer));
       cout<<buffer<<endl;
-    }
+    } 
     else if(tokens[0]=="cd"){
       string path=tokens[1];
       if(!path.empty() && path[0]=='~'){
