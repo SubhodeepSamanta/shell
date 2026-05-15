@@ -76,6 +76,23 @@ string getPwd(){
   return dir;
 }
 
+void switchDirectory(vector<string>& tokens){
+  string path;
+  if(tokens.size()>1)
+  path=tokens[1];
+  if(path[0]=='~'){
+    const char* homePath=getenv("HOME");  
+    string home(homePath);
+    path=home+path.substr(1);
+  }
+  if(chdir(path.c_str())==0){
+    path=getPwd();
+    cout<<path;
+  }else{
+    cout<<"cd: "<<path<<": No such file or directory";
+  }
+}
+
 bool handleCommand(vector<string>& tokens){
   if(tokens[0]=="type"){
     handleType(tokens[1]);
@@ -88,6 +105,9 @@ bool handleCommand(vector<string>& tokens){
   else if(tokens[0]=="pwd"){
     string dir=getPwd();
     cout<<dir;
+    return true;
+  }else if(tokens[0]=="cd"){
+    switchDirectory(tokens);
     return true;
   }
   else if(externalCommandCheck(tokens[0])!=""){
