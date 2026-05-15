@@ -6,6 +6,7 @@
 #include<limits.h>
 #include<sys/wait.h>
 #include<vector>
+#include<fcntl.h>
 using namespace std;
 
 string executable(string command){
@@ -22,6 +23,51 @@ string executable(string command){
     }
   }
   return "";
+}
+
+void handleEcho(vector<string>& tokens){
+  stringstream ss;
+  bool terminalPrint=true;
+  string fileName="";
+  for(int i=1;i<tokens.size();i++){
+    if(tokens[i]==">" || tokens[i]=="1>"){
+      terminalPrint=false;
+      if(i+1!=tokens.size()){
+        fileName=tokens[i+1];
+      }
+      break;
+    }else{
+      ss<<tokens[i]<<" ";
+    }
+  }
+    string output=ss.str();
+    if(!output.empty()) output.pop_back();
+    if(terminalPrint){
+      cout<<output;
+      return;
+    }
+    int fd=open(fileName.c_str(),O_WRONLY | O_CREAT | O_APPEND,0644);
+    int saved=dup(STDOUT_FILENO);
+    dup2(fd,STDOUT_FILENO);
+    cout<<output;
+    dup2(saved,STDOUT_FILENO);
+    close(fd);
+    close(saved);
+    return;
+}
+
+
+void handleCat(vector<string>& tokens){
+  char buffer[1024];
+  if(tokens.size()==1) return;
+  string fileName=tokens[1];
+  int fd=open(fileName.c_str(),O_RDONLY);
+  while(true){
+    int n=read(fd,buffer,sizeof(buffer));
+    if(n<=0) return;
+    write(STDOUT_FILENO,buffer,n);
+  }
+  close(fd);
 }
 
 
@@ -42,9 +88,11 @@ int main() {
     }
     if(tokens[0]=="exit") break;
     else if(tokens[0]=="echo"){
-      for(int i=1;i<tokens.size();i++){
-        cout<<tokens[i]<<" ";
-      }
+      handleEcho(tokens);
+      cout<<endl;
+    }
+    else if(tokens[0]=="cat"){
+      handleCat(tokens);
       cout<<endl;
     }
     else if(tokens[0]=="type"){
